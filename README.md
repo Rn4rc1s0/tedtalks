@@ -114,7 +114,7 @@ src/test/java/com/narciso/tedtalks
 
 1. **Clone the repository**
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/Rn4rc1s0/tedtalks.git
    cd tedtalks
    ```
 2. **Build & Test**
