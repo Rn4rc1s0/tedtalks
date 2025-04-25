@@ -1,0 +1,14 @@
+CREATE TABLE speakers (
+  id IDENTITY PRIMARY KEY,
+  name VARCHAR(255) NOT NULL UNIQUE
+);
+CREATE TABLE talks (
+  id IDENTITY PRIMARY KEY,
+  title VARCHAR(500) NOT NULL,
+  date VARCHAR(20) NOT NULL,
+  views BIGINT NOT NULL,
+  likes BIGINT NOT NULL,
+  link VARCHAR(1000),
+  speaker_id BIGINT NOT NULL,
+  CONSTRAINT fk_speaker FOREIGN KEY (speaker_id) REFERENCES speakers(id)
+);

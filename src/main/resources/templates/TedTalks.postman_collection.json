@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "9c062c3d-d83f-4f0a-9ad3-6758809fa83e",
+		"name": "TedTalks API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5823891"
+	},
+	"item": [
+		{
+			"name": "Import",
+			"item": [
+				{
+					"name": "Import Talks CSV",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/rodol/Downloads/iO_Data.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/import/talks",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"import",
+								"talks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Speakers",
+			"item": [
+				{
+					"name": "Get All Speakers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/speakers",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"speakers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Speaker by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/speakers/{{speaker_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"speakers",
+								"{{speaker_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Analyse of Influential Speaker",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/speakers/{{speaker_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"speakers",
+								"{{speaker_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Most Influential Speaker of the Year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/speakers/{{speaker_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"speakers",
+								"{{speaker_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Speaker",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{speaker_name}}\"\n}"
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/speakers",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"speakers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Speaker",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{updated_speaker_name}}\"\n}"
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/speakers/{{speaker_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"speakers",
+								"{{speaker_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Speaker",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/speakers/{{speaker_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"speakers",
+								"{{speaker_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Talks",
+			"item": [
+				{
+					"name": "Get All Talks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/talks",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"talks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Talk by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/talks/{{talk_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"talks",
+								"{{talk_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Talk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"{{talk_title}}\",\n  \"date\": \"{{talk_date}}\",\n  \"views\": {{talk_views}},\n  \"likes\": {{talk_likes}},\n  \"link\": \"{{talk_link}}\",\n  \"speakerId\": {{talk_speaker_id}}\n}"
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/talks",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"talks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Talk",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"{{updated_talk_title}}\",\n  \"date\": \"{{talk_date}}\",\n  \"views\": {{updated_talk_views}},\n  \"likes\": {{updated_talk_likes}},\n  \"link\": \"{{talk_link}}\",\n  \"speakerId\": {{talk_speaker_id}}\n}"
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/talks/{{talk_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"talks",
+								"{{talk_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Talk",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{base_url}}/api/talks/{{talk_id}}",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"talks",
+								"{{talk_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "speaker_id",
+			"value": "1"
+		},
+		{
+			"key": "speaker_name",
+			"value": "Nova Pessoa"
+		},
+		{
+			"key": "updated_speaker_name",
+			"value": "Outro Nome"
+		},
+		{
+			"key": "talk_id",
+			"value": "1"
+		},
+		{
+			"key": "talk_title",
+			"value": "Exemplo"
+		},
+		{
+			"key": "talk_date",
+			"value": "2021-12"
+		},
+		{
+			"key": "talk_views",
+			"value": "1000"
+		},
+		{
+			"key": "talk_likes",
+			"value": "100"
+		},
+		{
+			"key": "talk_link",
+			"value": "https://..."
+		},
+		{
+			"key": "talk_speaker_id",
+			"value": "1"
+		},
+		{
+			"key": "updated_talk_title",
+			"value": "Exemplo Atualizado"
+		},
+		{
+			"key": "updated_talk_views",
+			"value": "2000"
+		},
+		{
+			"key": "updated_talk_likes",
+			"value": "200"
+		}
+	]
+}
