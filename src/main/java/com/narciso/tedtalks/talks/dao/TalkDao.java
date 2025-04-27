@@ -1,7 +1,8 @@
 package com.narciso.tedtalks.talks.dao;
 
 import com.narciso.tedtalks.talks.domain.Talk;
-import org.springframework.dao.EmptyResultDataAccessException; 
+import com.narciso.tedtalks.talks.dto.TalkDto;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public class TalkDao {
                 "VALUES (:title, :dateStr, :views, :likes, :link, :speakerId)";
         var params = new MapSqlParameterSource()
                 .addValue("title", t.getTitle())
-                .addValue("dateStr", t.getDate().format(DB_DATE_FORMATTER)) // Add formatted date
+                .addValue("dateStr", t.getDate().format(DB_DATE_FORMATTER))
                 .addValue("views", t.getViews())
                 .addValue("likes", t.getLikes())
                 .addValue("link", t.getLink())
@@ -77,30 +78,39 @@ public class TalkDao {
     }
 
 
-    public Optional<Talk> findById(Long id) {
-        String sql = "SELECT * FROM talks WHERE id = :id";
+    public Optional<TalkDto> findById(Long id) {
+        String sql = """
+            SELECT t.*, s.name AS speaker_name
+            FROM talks t
+            JOIN speakers s ON t.speaker_id = s.id
+            WHERE t.id = :id
+            """;
         var params = new MapSqlParameterSource().addValue("id", id);
         try {
-            Talk talk = jdbc.queryForObject(sql, params, talkRowMapper);
-            return Optional.ofNullable(talk);
+            TalkDto talkDto = jdbc.queryForObject(sql, params, talkRowMapper);
+            return Optional.ofNullable(talkDto);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
     }
 
-    public Page<Talk> findAll(Pageable pageable) {
+    public Page<TalkDto> findAll(Pageable pageable) {
         String countSql = "SELECT COUNT(*) FROM talks";
         Long total = jdbc.queryForObject(countSql, new MapSqlParameterSource(), Long.class);
         long totalElements = (total != null) ? total : 0L;
 
         String sortClause = buildSortClause(pageable.getSort());
-        String dataSql = "SELECT * FROM talks " + sortClause + " LIMIT :limit OFFSET :offset";
+        String dataSql = """
+            SELECT t.*, s.name AS speaker_name
+            FROM talks t
+            JOIN speakers s ON t.speaker_id = s.id
+            """ + sortClause + " LIMIT :limit OFFSET :offset";
 
         var params = new MapSqlParameterSource()
                 .addValue("limit", pageable.getPageSize())
                 .addValue("offset", pageable.getOffset());
 
-        List<Talk> content = jdbc.query(dataSql, params, talkRowMapper);
+        List<TalkDto> content = jdbc.query(dataSql, params, talkRowMapper);
 
         return new PageImpl<>(content, pageable, totalElements);
     }
@@ -112,7 +122,17 @@ public class TalkDao {
                 .addValue("sid", speakerId)
                 .addValue("dateStr", date.format(DB_DATE_FORMATTER));
         try {
-            Talk talk = jdbc.queryForObject(sql, params, talkRowMapper);
+            Talk talk = jdbc.queryForObject(sql, params, (rs, rowNum) ->
+                    Talk.builder()
+                            .id(rs.getLong("id"))
+                            .title(rs.getString("title"))
+                            .date(YearMonth.parse(rs.getString("date"), DB_DATE_FORMATTER))
+                            .views(rs.getInt ("views"))
+                            .likes(rs.getInt("likes"))
+                            .link(rs.getString("link"))
+                            .speakerId(rs.getLong("speaker_id"))
+                            .build()
+            );
             return Optional.ofNullable(talk);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();

@@ -14,13 +14,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -55,8 +53,8 @@ class InfluenceServiceTest {
 
     @BeforeEach
     void setUp() {
-        SpeakerInfluenceDto speaker1Dto = new SpeakerInfluenceDto(1L, "Speaker One", 1000L, 100L, BigDecimal.valueOf(110.0));
-        SpeakerInfluenceDto speaker2Dto = new SpeakerInfluenceDto(2L, "Speaker Two", 2000L, 50L, BigDecimal.valueOf(205.0)); // Higher score
+        SpeakerInfluenceDto speaker1Dto = new SpeakerInfluenceDto(1L, "Speaker One", 1000, 100, BigDecimal.valueOf(110.0));
+        SpeakerInfluenceDto speaker2Dto = new SpeakerInfluenceDto(2L, "Speaker Two", 2000, 50, BigDecimal.valueOf(205.0)); // Higher score
 
         MostInfluentialSpeaker speaker1MostInfluential = new MostInfluentialSpeaker(1L, "Speaker One", BigDecimal.valueOf(110.0));
         MostInfluentialSpeaker speaker2MostInfluential = new MostInfluentialSpeaker(2L, "Speaker Two", BigDecimal.valueOf(205.0));
