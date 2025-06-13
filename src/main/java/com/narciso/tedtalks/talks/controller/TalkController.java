@@ -2,7 +2,10 @@ package com.narciso.tedtalks.talks.controller;
 
 import com.narciso.tedtalks.common.utils.SortUtils;
 import com.narciso.tedtalks.talks.domain.Talk;
+import com.narciso.tedtalks.talks.dto.CreateTalkDto;
+import com.narciso.tedtalks.talks.dto.TalkDto;
 import com.narciso.tedtalks.talks.service.TalkService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +22,7 @@ public class TalkController {
     private final TalkService talkService;
 
     @GetMapping
-    public Page<Talk> getAllTalks(
+    public Page<TalkDto> getAllTalks(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "title,asc") String[] sort
@@ -30,19 +33,20 @@ public class TalkController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Talk> getTalkById(@PathVariable Long id) {
-        Talk talk = talkService.findById(id);
-        return ResponseEntity.ok(talk);
+    public ResponseEntity<TalkDto> getTalkById(@PathVariable Long id) {
+        TalkDto talkDto = talkService.findById(id);
+        return ResponseEntity.ok(talkDto);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Talk createTalk(@RequestBody Talk talk) {
-        return talkService.create(talk);
+    public TalkDto createTalk(@Valid @RequestBody CreateTalkDto createTalkDto) {
+
+        return talkService.create(createTalkDto);
     }
 
     @PutMapping("/{id}")
-    public Talk updateTalk(@PathVariable Long id, @RequestBody Talk talk) {
+    public TalkDto updateTalk(@PathVariable Long id, @RequestBody Talk talk) {
         return talkService.update(id, talk);
     }
 

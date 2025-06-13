@@ -47,8 +47,8 @@ public class InfluenceService {
                 sql.toString(),
                 params,
                 (rs, rowNum) -> {
-                    long views = rs.getLong("total_views");
-                    long likes = rs.getLong("total_likes");
+                    int views = rs.getInt("total_views");
+                    int likes = rs.getInt("total_likes");
                     BigDecimal score = strategy.score(views, likes);
                     return new SpeakerInfluenceDto(
                             rs.getLong("speaker_id"),
@@ -76,8 +76,8 @@ public class InfluenceService {
         var params = new MapSqlParameterSource().addValue("year", String.valueOf(year));
 
         return jdbc.query(sql, params, (rs, rowNum) -> {
-                    long views = rs.getLong("total_views");
-                    long likes = rs.getLong("total_likes");
+                    int views = rs.getInt("total_views");
+                    int likes = rs.getInt("total_likes");
                     BigDecimal score = strategy.score(views, likes);
                     return new MostInfluentialSpeaker(
                             rs.getLong("id"),

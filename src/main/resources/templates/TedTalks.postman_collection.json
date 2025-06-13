@@ -94,7 +94,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{base_url}}/api/speakers/{{speaker_id}}",
+							"raw": "http://{{base_url}}/api/speakers/influence?year=2021",
 							"protocol": "http",
 							"host": [
 								"{{base_url}}"
@@ -102,7 +102,13 @@
 							"path": [
 								"api",
 								"speakers",
-								"{{speaker_id}}"
+								"influence"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2021"
+								}
 							]
 						}
 					},
@@ -114,7 +120,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{base_url}}/api/speakers/{{speaker_id}}",
+							"raw": "http://{{base_url}}/api/speakers/influence/most-influential?year=2022",
 							"protocol": "http",
 							"host": [
 								"{{base_url}}"
@@ -122,7 +128,14 @@
 							"path": [
 								"api",
 								"speakers",
-								"{{speaker_id}}"
+								"influence",
+								"most-influential"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2022"
+								}
 							]
 						}
 					},
@@ -278,6 +291,34 @@
 					"response": []
 				},
 				{
+					"name": "Create Talk and Speaker",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"{{talk_title}}\",\n  \"date\": \"{{talk_date}}\",\n  \"views\": {{talk_views}},\n  \"likes\": {{talk_likes}},\n  \"link\": \"{{talk_link}}\",\n  \"speakerName\": \"{{talk_speaker_name}}\"\n}"
+						},
+						"url": {
+							"raw": "http://{{base_url}}/api/talks",
+							"protocol": "http",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"talks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update Talk",
 					"request": {
 						"method": "PUT",
@@ -385,6 +426,11 @@
 		{
 			"key": "updated_talk_likes",
 			"value": "200"
+		},
+		{
+			"key": "talk_speaker_name",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
